@@ -12,7 +12,7 @@ def main():
         st.text_input("Please input the word for which you would like to find the similarity")
 
     with n_words:
-        st.number_input('Number of similar words', step=1)
+        st.number_input('Number of similar words', step=1, min_value=1, max_value=10)
 
     # text = st.text_input("Please input the word for which you would like to find the similarity")
     # n_words = st.number_input('Please specify the number of similar words you want', step=1)
