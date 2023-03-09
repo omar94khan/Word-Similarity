@@ -26,13 +26,8 @@ def main():
     with svd:
         st.checkbox('LSA / SVD')
     
-    all_models = [bow,w2v,glv,w2vc,svd]
 
     result = pd.DataFrame()
-
-    for i in all_models:
-        if i:
-            result.append(pd.DataFrame(columns=str(i)), ignore_index = True)
 
     st.write(result)
 
