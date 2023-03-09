@@ -7,13 +7,24 @@ def main():
     st.title('Word Similarity')
     
     text = st.text_input("Please input the word for which you would like to find the similarity")
-    
+    n_words = st.number_input('Please specify the number of similar words you want')
+
     bow = st.checkbox('Bag of Words')
     w2v = st.checkbox('Word2Vec (Pre-Trained)')
     glv = st.checkbox('GLoVe (Pre-Trained)')
     w2vc = st.checkbox('Word2Vec (Customized)')
     svd = st.checkbox('LSA / SVD')
     
+    all_models = [bow,w2v,glv,w2vc,svd]
+
+    result = pd.DataFrame()
+
+    for i in all_models:
+        if i:
+            result.append(pd.DataFrame(columns=str(i)), ignore_index = True)
+
+    st.write(result)
+
     # if file is not None:
     #     df = pd.read_csv(file)
     #     st.write("The dataset you uploaded is:")
