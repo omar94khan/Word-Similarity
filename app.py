@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 def main():
-    st.title('Similarity Similarity')
+    st.title('Sentence Similarity')
     
     text, n_words = st.columns([7,2])
 
