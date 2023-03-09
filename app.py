@@ -6,7 +6,7 @@ import pickle
 def main():
     st.title('Word Similarity')
     
-    text, n_words = st.columns([6,2])
+    text, n_words = st.columns([7,2])
 
     with text:
         st.text_input("Please input the word for which you would like to find the similarity")
