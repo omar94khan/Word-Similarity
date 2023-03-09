@@ -4,24 +4,27 @@ import numpy as np
 import pickle
 
 def main():
-    st.title('Word Similarity')
+    st.title('Similarity Similarity')
     
     text, n_words = st.columns([7,2])
 
     with text:
-        st.text_input("Please input the word for which you would like to find the similarity")
+        st.text_input("Please input the sentence for which you would like to find the similarity")
 
     with n_words:
         st.number_input('Number of similar words', step=1, min_value=1, max_value=10)
 
-    # text = st.text_input("Please input the word for which you would like to find the similarity")
-    # n_words = st.number_input('Please specify the number of similar words you want', step=1)
-
-    bow = st.checkbox('Bag of Words')
-    w2v = st.checkbox('Word2Vec (Pre-Trained)')
-    glv = st.checkbox('GLoVe (Pre-Trained)')
-    w2vc = st.checkbox('Word2Vec (Customized)')
-    svd = st.checkbox('LSA / SVD')
+    bow, w2v, glv, w2vc, svd = st.columns(5)
+    with bow:
+        st.checkbox('Bag of Words')
+    with w2v:
+        st.checkbox('Word2Vec (Pre-Trained)')
+    with glv:
+        st.checkbox('GLoVe (Pre-Trained)')
+    with w2vc:
+        st.checkbox('Word2Vec (Customized)')
+    with svd:
+        st.checkbox('LSA / SVD')
     
     all_models = [bow,w2v,glv,w2vc,svd]
 
