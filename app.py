@@ -7,7 +7,7 @@ def main():
     st.title('Word Similarity')
     
     text = st.text_input("Please input the word for which you would like to find the similarity")
-    n_words = st.number_input('Please specify the number of similar words you want', step=1, format=int)
+    n_words = st.number_input('Please specify the number of similar words you want', step=1)
 
     bow = st.checkbox('Bag of Words')
     w2v = st.checkbox('Word2Vec (Pre-Trained)')
