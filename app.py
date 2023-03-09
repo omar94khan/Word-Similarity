@@ -7,9 +7,12 @@ def main():
     st.title('Word Similarity')
     
     text = st.text_input("Please input the word for which you would like to find the similarity")
-    method = st.multiselect('Method of word comparison', options=['Bag of Words','Word2Vec (pre-trained)', 'GLoVe (pre-trained)','Word2Vec (customized)','LSA/SVD'])
-    for i in ['Bag of Words','Word2Vec (pre-trained)', 'GLoVe (pre-trained)','Word2Vec (customized)','LSA/SVD']:
-        st.checkbox(i)
+    
+    bow = st.checkbox('Bag of Words')
+    w2v = st.checkbox('Word2Vec (Pre-Trained)')
+    glv = st.checkbox('GLoVe (Pre-Trained)')
+    w2vc = st.checkbox('Word2Vec (Customized)')
+    svd = st.checkbox('LSA / SVD')
     
     # if file is not None:
     #     df = pd.read_csv(file)
