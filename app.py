@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 def main():
-    st.title('Headline Findere')
+    st.title('Headline Finder')
     
     text, n_words = st.columns([7,2])
 
