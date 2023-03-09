@@ -7,7 +7,7 @@ def main():
     st.title('Word Similarity')
     
     text = st.text_input("Please input the word for which you would like to find the similarity")
-    method = st.radio('Method of word comparison', options=['Bag of Words','Word2Vec (pre-trained)', 'GLoVe (pre-trained)','Word2Vec (customized)','LSA/SVD'])
+    method = st.multiselect('Method of word comparison', options=['Bag of Words','Word2Vec (pre-trained)', 'GLoVe (pre-trained)','Word2Vec (customized)','LSA/SVD'])
 
     # if file is not None:
     #     df = pd.read_csv(file)
