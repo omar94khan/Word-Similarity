@@ -4,15 +4,15 @@ import numpy as np
 import pickle
 
 def main():
-    st.title('Sentence Similarity')
+    st.title('Headline Findere')
     
     text, n_words = st.columns([7,2])
 
     with text:
-        st.text_input("Please input the sentence for which you would like to find the similarity")
+        st.text_input("Please input your search query")
 
     with n_words:
-        st.number_input('Number of similar words', step=1, min_value=1, max_value=10)
+        st.number_input('Number of top results', step=1, min_value=1, max_value=10)
 
     bow, w2v, glv, w2vc, svd = st.columns(5)
     with bow:
