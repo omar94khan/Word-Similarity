@@ -85,13 +85,11 @@ def main():
 
     url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/data_world_example.json?token=GHSAT0AAAAAAB7Z62R3WV4EKYQOKNNEA6F6ZALMDJQ'
     resp = requests.get(url)
-    st.write(resp)
     data = json.loads(resp.text)
-    st.write(data)
     titles =[]
     for i in range(0,len(data)):
         titles.append(data[i]['title'])
-
+    st.write(titles)
 
     st.title('Headline Finder')
     
