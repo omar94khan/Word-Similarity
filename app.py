@@ -5,6 +5,8 @@ import numpy as np
 import json
 
 import string
+import nltk
+nltk.download('wordnet')
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
