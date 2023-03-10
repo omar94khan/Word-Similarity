@@ -116,7 +116,7 @@ def main():
     with svd:
         st.checkbox('LSA / SVD')
 
-    if bow:
+    if bow == True:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
         result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
