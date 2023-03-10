@@ -86,7 +86,9 @@ def main():
     url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/titles.csv?token=GHSAT0AAAAAAB7Z62R2T76FQTYZYF2L4PHUZALOGQA'
     # titles = pd.DataFrame(url)
     resp = requests.get(url)
+    
     data = json.loads(resp.text)
+    st.write(data)
     titles =[]
     for i in range(0,len(data)):
         titles.append(data[i])
