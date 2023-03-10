@@ -156,4 +156,6 @@ def main():
     #                         data = result_df.to_csv().encode('utf-8'),
     #                         file_name = "fraud_probability.csv",
     #                         mime = 'text/csv')
-main()
+
+while True:
+    main()
