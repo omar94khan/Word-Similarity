@@ -70,7 +70,7 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
 # data = json.loads(file.read())
 # file.close()
 
-url = 'https://github.com/omar94khan/Word-Similarity/blob/48733596492e6839365de7204a1a4f9cbe06c16d/data_world_example.json'
+url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/data_world_example.json?token=GHSAT0AAAAAAB7Z62R3WV4EKYQOKNNEA6F6ZALMDJQ'
 resp = requests.get(url)
 data = json.loads(resp.text)
 titles =[]
