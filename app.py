@@ -87,7 +87,7 @@ def main():
     # titles = pd.DataFrame(url)
     resp = requests.get(url)
     
-    data = json.loads(resp.text)
+    data = list(resp.text)
     st.write(data)
     titles =[]
     for i in range(0,len(data)):
