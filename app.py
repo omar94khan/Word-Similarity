@@ -87,8 +87,8 @@ def main():
     # titles = pd.DataFrame(url)
     resp = requests.get(url)
     
-    data = list(resp)
-    st.write(data.split('\n'))
+    data = list(resp.text.split('\n'))
+    st.write(data)
     titles =[]
     for i in range(0,len(data)):
         titles.append(data[i])
