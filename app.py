@@ -88,7 +88,7 @@ def main():
     resp = requests.get(url)
     
     data = list(resp)
-    st.write(data)
+    st.write(data.split('\n'))
     titles =[]
     for i in range(0,len(data)):
         titles.append(data[i])
