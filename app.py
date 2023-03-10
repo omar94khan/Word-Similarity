@@ -89,7 +89,7 @@ def main():
     titles =[]
     for i in range(0,len(data)):
         titles.append(data[i]['title'])
-    st.write(titles)
+    st.write(titles[10])
 
     st.title('Headline Finder')
     
