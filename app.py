@@ -83,12 +83,14 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
 
 def main():
 
-    url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/data_world_example.json?token=GHSAT0AAAAAAB7Z62R3WV4EKYQOKNNEA6F6ZALMDJQ'
-    resp = requests.get(url)
-    data = json.loads(resp.text)
-    titles =[]
-    for i in range(0,len(data)):
-        titles.append(data[i]['title'])
+    url = 'https://github.com/omar94khan/Word-Similarity/blob/9a0d07a8d903d2fa9c09a785b9e4c52e361a33bc/titles.csv'
+    titles = pd.DataFrame(url)
+    # resp = requests.get(url)
+    # data = json.loads(resp.text)
+    # titles =[]
+    # for i in range(0,len(data)):
+    #     titles.append(data[i]['title'])
+    
 
     st.title('Headline Finder')
     
