@@ -70,18 +70,29 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
 # data = json.loads(file.read())
 # file.close()
 
-url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/data_world_example.json?token=GHSAT0AAAAAAB7Z62R3WV4EKYQOKNNEA6F6ZALMDJQ'
-resp = requests.get(url)
-print(resp)
-data = json.loads(resp.text)
-print(data)
-titles =[]
-for i in range(0,len(data)):
-    titles.append(data[i]['title'])
+# url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/data_world_example.json?token=GHSAT0AAAAAAB7Z62R3WV4EKYQOKNNEA6F6ZALMDJQ'
+# resp = requests.get(url)
+# st.write(resp)
+# data = json.loads(resp.text)
+# st.write(data)
+# titles =[]
+# for i in range(0,len(data)):
+#     titles.append(data[i]['title'])
 
 
 
 def main():
+
+    url = 'https://raw.githubusercontent.com/omar94khan/Word-Similarity/main/data_world_example.json?token=GHSAT0AAAAAAB7Z62R3WV4EKYQOKNNEA6F6ZALMDJQ'
+    resp = requests.get(url)
+    st.write(resp)
+    data = json.loads(resp.text)
+    st.write(data)
+    titles =[]
+    for i in range(0,len(data)):
+        titles.append(data[i]['title'])
+
+
     st.title('Headline Finder')
     
     text, n_words = st.columns([7,2])
