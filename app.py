@@ -3,6 +3,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import json
+import requests
 
 import string
 import nltk
@@ -65,12 +66,18 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
     return similarity_df 
 
 
-file = open('https://github.com/omar94khan/Word-Similarity/blob/48733596492e6839365de7204a1a4f9cbe06c16d/data_world_example.json', 'r')
-data = json.loads(file.read())
-file.close()
+# file = open('https://github.com/omar94khan/Word-Similarity/blob/48733596492e6839365de7204a1a4f9cbe06c16d/data_world_example.json', 'r')
+# data = json.loads(file.read())
+# file.close()
+
+url = 'https://github.com/omar94khan/Word-Similarity/blob/48733596492e6839365de7204a1a4f9cbe06c16d/data_world_example.json'
+resp = requests.get(url)
+data = json.loads(resp.text)
 titles =[]
 for i in range(0,len(data)):
     titles.append(data[i]['title'])
+
+
 
 def main():
     st.title('Headline Finder')
