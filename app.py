@@ -65,7 +65,7 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
     return similarity_df 
 
 
-file = open('resources/data_world_example.json', 'r')
+file = open('data_world_example.json', 'r')
 data = json.loads(file.read())
 file.close()
 titles =[]
