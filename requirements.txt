@@ -2,12 +2,7 @@ streamlit
 pandas
 numpy
 pickle
-gensim.models.KeyedVectors
-re
 string
-nltk.corpus.stopwords
-nltk.stem.porter.PorterStemmer
-nltk.stem.WordNetLemmatizer
-sklearn.feature_extraction.text
-sklearn.metrics.pairwise.cosine_similarity
+nltk
+sklearn
 json

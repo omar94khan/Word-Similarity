@@ -2,14 +2,12 @@ import streamlit as st
 import pickle
 import pandas as pd
 import numpy as np
-from gensim.models import KeyedVectors
 import json
 
-import re, string
-from nltk.corpus import stopwords
+import string
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
