@@ -65,13 +65,12 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
     return similarity_df 
 
 
-file = open('opensnippets-al-jazeera-news-dataset/original/data_world_example.json', 'r')
+file = open('resources/opensnippets-al-jazeera-news-dataset/original/data_world_example.json', 'r')
 data = json.loads(file.read())
 file.close()
 titles =[]
 for i in range(0,len(data)):
     titles.append(data[i]['title'])
-titles
 
 def main():
     st.title('Headline Finder')
