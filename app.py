@@ -1,7 +1,77 @@
 import streamlit as st
+import pickle
 import pandas as pd
 import numpy as np
-import pickle
+from gensim.models import KeyedVectors
+import json
+
+import re, string
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+
+
+def remove_punctutations(text):
+    for punc in string.punctuation:
+        text = text.replace(punc, '')
+    return text.lower()
+
+
+
+def root_word(text, method = 'lemma'):
+    words = text.split()    
+    if method == 'lemma':
+        lemma = WordNetLemmatizer()
+        root_words  = [lemma.lemmatize(word) for word in words] 
+    elif method == 'stem':
+        stem = PorterStemmer()
+        root_words  = [stem.stem(word) for word in words] 
+    else:
+        raise SyntaxError("Method should be either 'lemma' or 'stem'")    
+    return ' '.join(root_words)
+
+
+
+def stopword_removal(text, stopwords = set("my a has with its of as on her his or our their is in by up says say for at to and the s he may -".split())):
+    s_list = [word for word in text.split() if word not in stopwords]
+    str_ = ' '.join(s_list)   
+    return str_
+
+
+
+def query_run(query, embedding, vectorizer, root_method = 'stem', stop_word_removal = True):    
+    query_emb_array = vectorizer.transform([query]).toarray()
+    if stop_word_removal == True:
+        query = stopword_removal(remove_punctutations(query))
+    query = root_word(query, method = root_method)
+    cosine_sim = cosine_similarity(query_emb_array, embedding)    
+    return cosine_sim
+
+
+
+def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n=5, stop_word_removal = True ):
+    cosine_sim_values = query_run(query, embedding, vectorizer, root_method, stop_word_removal)
+    x = np.argsort(cosine_sim_values, axis = 1)[0,-n:]
+    similarity_df = pd.DataFrame(columns=['Result','Similarity'])
+    if type(df) != 'pandas.core.frame.DataFrame':
+        new_df = pd.DataFrame(df)
+    for i in x:
+        similarity_df = similarity_df.append({'Result': new_df.loc[i,0], 
+                                              'Similarity' : cosine_sim_values[0,i]},
+                                              ignore_index = True)
+    avg_sim_top_n = np.mean(cosine_sim_values[0,x])
+    return similarity_df 
+
+
+file = open('opensnippets-al-jazeera-news-dataset/original/data_world_example.json', 'r')
+data = json.loads(file.read())
+file.close()
+titles =[]
+for i in range(0,len(data)):
+    titles.append(data[i]['title'])
+titles
 
 def main():
     st.title('Headline Finder')
@@ -25,7 +95,14 @@ def main():
         st.checkbox('Word2Vec (Customized)')
     with svd:
         st.checkbox('LSA / SVD')
-    
+
+    if bow:
+        vectorizer = CountVectorizer(binary=True)
+        embedding = vectorizer.fit(titles).transform(titles).toarray()
+        result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
+        st.write(result)
+
+        
 
     result = pd.DataFrame()
 
