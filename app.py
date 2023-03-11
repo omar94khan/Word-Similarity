@@ -138,9 +138,9 @@ def main():
             
     if w2v_c == True:
         for i in range(0,len(bow_result)):
-            result = result.append({('Word2Vec (Pre-Trained)','Headline') : bow_result['Result'][i],
+            result = result.concat({('Word2Vec (Pre-Trained)','Headline') : bow_result['Result'][i],
                        ('Word2Vec (Pre-Trained)','Similarity') : float(bow_result['Similarity'][i])},
-                       ignore_index = True)
+                       axis=1, ignore_index=True)
     
 
     # for i,j in model_list:
