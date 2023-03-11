@@ -13,7 +13,7 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-
+# Functions for Bag of Words
 def remove_punctutations(text):
     for punc in string.punctuation:
         text = text.replace(punc, '')
@@ -34,8 +34,8 @@ def root_word(text, method = 'lemma'):
     return ' '.join(root_words)
 
 
-
-def stopword_removal(text, stopwords = set("my a has with its of as on her his or our their is in by up says say for at to and the s he may -".split())):
+stopwords = set("my a has with its of as on her his or our their is in by up says say for at to and the s he may -".split())
+def stopword_removal(text, stopwords = stopwords):
     s_list = [word for word in text.split() if word not in stopwords]
     str_ = ' '.join(s_list)   
     return str_
@@ -66,6 +66,55 @@ def find_top_n_results(df, query, embedding, vectorizer, root_method = 'stem', n
     return similarity_df 
 
 
+model_W2V = pickle.load(open('./models/w2v_similarity.pkl', 'rb'))
+
+# Function for Word2Vec and GLoVE
+def similarity_w2vglove(query, n_return, cluster_dict, clusters_model):
+    query_emb_array = []
+
+    q_nlp = nlp(query.lower())    
+    for token in q_nlp:
+        tok_lem = str(remove_punctutations(token.lemma_))
+        if (tok_lem not in stopwords):
+            if tok_lem in model_W2V.key_to_index:
+                query_emb_array.append(model_W2V[tok_lem])
+            else:
+                try:
+                    query_emb_array.append(model_W2V[tok_lem.capitalize()])
+                except:
+                    query_emb_array.append(np.zeros(model_W2V.vector_size))
+    
+    query_emb_array = np.array(query_emb_array).mean(axis=0).reshape(1,300)
+
+
+    cluster_centroids = clusters_model.cluster_centers_
+    similarity = cosine_similarity(query_emb_array, cluster_centroids)
+
+
+    cluster_number = np.array(similarity).argmax()
+    cluster_df = cluster_dict['Cluster %s'%cluster_number]
+
+    cluster_embedding = cluster_df['vector'].values
+    
+    similarity_to_title = [] 
+
+    for i in range (0, cluster_df.shape[0]):
+        similarity_to_title.append(cosine_similarity(query_emb_array,cluster_embedding[i].reshape(1,300)))
+
+    for i in range (0,len(similarity_to_title)):
+        similarity_to_title[i] = similarity_to_title[i][0][0]
+
+    cluster_df['similarity'] = similarity_to_title
+
+    cluster_df = cluster_df.sort_values(by='similarity', ascending = False).reset_index()
+
+    result = pd.DataFrame({
+                            'Result' : cluster_df['Titles'].iloc[0:n_return],
+                            'Similarity' : cluster_df['similarity'].iloc[0:n_return]
+                            }, columns=['Result','Similarity'])
+    
+    return result
+
 file = open('./data_world_example.json', 'r')
 data = json.loads(file.read())
 file.close()
@@ -79,13 +128,13 @@ for i in range(0,len(data)):
 def main():
     st.title('Headline Finder')
     
-    text, n_words = st.columns([7,2])
+    text, n_results = st.columns([7,2])
 
     with text:
         text = st.text_input("Please input your search query")
 
-    with n_words:
-        n_words = st.number_input('Number of top results', step=1, min_value=1, max_value=10)
+    with n_results:
+        n_results = st.number_input('Number of top results', step=1, min_value=1, max_value=10)
 
 
     bow_c, w2v_c, glv_c, w2vc_c, svd_c = st.columns(5)
@@ -103,9 +152,12 @@ def main():
     if bow_c == True:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
-        bow_result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
+        bow_result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_results, stop_word_removal=True)
         bow_result = bow_result.sort_values('Similarity', ascending=False, ignore_index=True)
         
+    if w2v_c == True:
+        w2v_clusters = pickle.load(open('./models/w2v_clusters.pkl', 'rb'))
+        w2v_results = similarity_w2vglove(text, n_results, w2v_clusters)
 
     models = dict()
 
@@ -132,6 +184,10 @@ def main():
             result.loc[i,('Bag of Words','Similarity')] = bow_result['Similarity'][i]
 
             
+    if w2v_c == True:
+        for i in range(0,len(w2v_results)):
+            result.loc[i,('Word2Vec (Pre-Trained)','Headline')] = w2v_results['Result'][i]
+            result.loc[i,('Word2Vec (Pre-Trained)','Similarity')] = w2v_results['Similarity'][i]
 
     # for i,j in model_list:
     #     st.write('Status of ',i,': ',j)
