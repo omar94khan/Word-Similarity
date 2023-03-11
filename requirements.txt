@@ -4,4 +4,4 @@ numpy
 nltk
 scikit-learn
 requests
-spacy
+spacy_streamlit
