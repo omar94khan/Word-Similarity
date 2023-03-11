@@ -77,6 +77,8 @@ for i in range(0,len(data)):
 
 
 def main():
+
+    st.write(titles)
     st.title('Headline Finder')
     
     text, n_words = st.columns([7,2])
