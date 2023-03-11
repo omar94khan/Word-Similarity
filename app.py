@@ -100,10 +100,6 @@ def main():
     with svd_c:
         svd_c = st.checkbox('LSA / SVD')
 
-
-    st.write('Status of text: ', text)
-    st.write('Status of n_words: ', n_words)
-
     if bow_c == True:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
