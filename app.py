@@ -109,7 +109,7 @@ def main():
     if bow_c == True:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
-        result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
+        result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True).sort_values('Similarity', ascending=False, ignore_index=True)
         st.write(result)
 
     models = dict()
