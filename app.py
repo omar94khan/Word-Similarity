@@ -134,23 +134,15 @@ def main():
         for i in range(0,len(bow_result)):
             result.loc[i,('Bag of Words','Headline')] = bow_result['Result'][i]
             result.loc[i,('Bag of Words','Similarity')] = bow_result['Similarity'][i]
-            # result = result.append({('Bag of Words','Headline') : bow_result['Result'][i],
-            #            ('Bag of Words','Similarity') : float(bow_result['Similarity'][i])},
-            #            ignore_index = True)
+
             
-    if w2v_c == True:
-        for i in range(0,len(bow_result)):
-            result.loc[i,('Word2Vec (Pre-Trained)','Headline')] = bow_result['Result'][i]
-            result.loc[i,('Word2Vec (Pre-Trained)','Similarity')] = bow_result['Similarity'][i]
-            
-            # result = result.concat({('Word2Vec (Pre-Trained)','Headline') : bow_result['Result'][i],
-            #            ('Word2Vec (Pre-Trained)','Similarity') : float(bow_result['Similarity'][i])},
-            #            ignore_index = True)
-    
 
     # for i,j in model_list:
     #     st.write('Status of ',i,': ',j)
 
-    st.write(result)
+    if len(result) == 0:
+        st.write('Please select an option above.')
+    else:
+        st.write(result)    
 
 main()
