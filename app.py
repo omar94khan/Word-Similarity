@@ -136,7 +136,7 @@ def main():
     # for i,j in model_list:
     #     st.write('Status of ',i,': ',j)
 
-    if len(result) == 0:
+    if len(result.shape) == 2:
         st.write('Please select an option above.')
     else:
         st.write(result)    
