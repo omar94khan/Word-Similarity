@@ -123,6 +123,10 @@ def main():
         st.write(result)
 
     models = dict()
+
+    st.write(bow)
+    st.write(w2v)
+    
     model_list = [["Bag of Words" , bow], ["Word2Vec (Pre-Trained)" , w2v], ["GLoVe (Pre-Trained)",  glv], ["Word2Vec (Customized)" , w2vc], ["LSA / SVD", svd]]
     for i,j in model_list:
         # for j,k in i:
