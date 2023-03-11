@@ -130,6 +130,7 @@ def main():
 
     result = pd.DataFrame(columns=header)
 
+    st.write(result)
     if bow_c == True:
         result = result.append({['Bag of Words','Headline'] : bow_result['Result'],
                        ['Bag of Words','Similarity'] : bow_result['Similarity']
