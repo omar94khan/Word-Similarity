@@ -116,21 +116,20 @@ def main():
     with svd:
         st.checkbox('LSA / SVD')
 
-    st.write(bow, w2v, glv, w2vc, svd)
-
     if bow == True:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
         result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
         st.write(result)
 
-    models = {
-                "Bag of Words" : bow,
-                "Word2Vec (Pre-Trained)" : w2v,
-                "GLoVe (Pre-Trained)" : glv,
-                "Word2Vec (Customized)" : w2vc,
-                "LSA / SVD" : svd
-                }
+    models = dict()
+    model_list = [["Bag of Words" , bow], ["Word2Vec (Pre-Trained)" , w2v], ["GLoVe (Pre-Trained)",  glv], ["Word2Vec (Customized)" , w2vc], ["LSA / SVD", svd]]
+    for i in model_list:
+        for j,k in i:
+            try:
+                models[j] = k
+            except:
+                models[j] = False
 
     columns = []
     for i in models.keys():
