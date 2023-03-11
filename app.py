@@ -88,7 +88,6 @@ def main():
     resp = requests.get(url)
     
     data = list(resp.text.split('\n'))[1:-2]
-    st.write(data)
     titles =[]
     for i in range(0,len(data)):
         titles.append(data[i])
@@ -118,6 +117,8 @@ def main():
         svd_c = st.checkbox('LSA / SVD')
 
 
+    st.write('Status of text: ', text)
+    st.write('Status of n_words: ', n_words)
 
     if bow_c == True:
         vectorizer = CountVectorizer(binary=True)
@@ -142,7 +143,8 @@ def main():
 
     result = pd.DataFrame(columns=columns)
 
-
+    for i,j in model_list:
+        st.write('Status of ',i,': ',j)
 
     st.write(result)
 
