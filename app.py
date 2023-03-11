@@ -134,7 +134,7 @@ def main():
 
     columns = []
     for i in models.keys():
-        if models[i] != False:
+        if models[i] == True:
             columns.append(i)
 
     result = pd.DataFrame(columns=columns)
