@@ -122,9 +122,22 @@ def main():
         result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
         st.write(result)
 
-        
+    models = {
+                "Bag of Words" : bow,
+                "Word2Vec (Pre-Trained)" : w2v,
+                "GLoVe (Pre-Trained)" : glv,
+                "Word2Vec (Customized)" : w2vc,
+                "LSA / SVD" : svd
+                }
 
-    result = pd.DataFrame()
+    columns = []
+    for i in models.keys():
+        if models[i] != False:
+            columns.append(i)
+
+    result = pd.DataFrame(columns=columns)
+
+    
 
     st.write(result)
 
@@ -157,5 +170,4 @@ def main():
     #                         file_name = "fraud_probability.csv",
     #                         mime = 'text/csv')
 
-while True:
-    main()
+main()
