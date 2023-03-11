@@ -72,7 +72,7 @@ file.close()
 titles =[]
 
 for i in range(0,len(data)):
-    titles.append(data[i])
+    titles.append(data[i]['title'])
 
 
 
