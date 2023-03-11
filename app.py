@@ -130,11 +130,10 @@ def main():
 
     result = pd.DataFrame(columns=header)
 
-    st.write(result)
     if bow_c == True:
         for i in range(0,len(bow_result)):
             result = result.append({('Bag of Words','Headline') : bow_result['Result'][i],
-                       ('Bag of Words','Similarity') : bow_result['Similarity'][i]},
+                       ('Bag of Words','Similarity') : float(bow_result['Similarity'][i])},
                        ignore_index = True)
 
     # for i,j in model_list:
