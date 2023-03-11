@@ -99,10 +99,10 @@ def main():
     text, n_words = st.columns([7,2])
 
     with text:
-        st.text_input("Please input your search query")
+        text = st.text_input("Please input your search query")
 
     with n_words:
-        st.number_input('Number of top results', step=1, min_value=1, max_value=10)
+        n_words = st.number_input('Number of top results', step=1, min_value=1, max_value=10)
 
     bow_c = st.checkbox('Bag of Words')
     w2v_c = st.checkbox('Word2Vec (Pre-Trained)')
