@@ -129,12 +129,10 @@ def main():
     models = dict()
 
     model_list = [["Bag of Words" , bow_c], ["Word2Vec (Pre-Trained)" , w2v_c], ["GLoVe (Pre-Trained)",  glv_c], ["Word2Vec (Customized)" , w2vc_c], ["LSA / SVD", svd_c]]
+    
     for i,j in model_list:
-        # for j,k in i:
-            try:
-                models[i] = j
-            except:
-                models[i] = False
+        models[i] = j
+
 
     columns = []
     for i in models.keys():
