@@ -132,9 +132,9 @@ def main():
 
     st.write(result)
     if bow_c == True:
-        result = result.append({['Bag of Words','Headline'] : bow_result['Result'],
+        result = result.add_suffix({['Bag of Words','Headline'] : bow_result['Result'],
                        ['Bag of Words','Similarity'] : bow_result['Similarity']
-                       }, ignore_index = True)
+                       })
 
     for i,j in model_list:
         st.write('Status of ',i,': ',j)
