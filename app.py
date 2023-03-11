@@ -106,15 +106,15 @@ def main():
 
     bow_c, w2v_c, glv_c, w2vc_c, svd_c = st.columns(5)
     with bow_c:
-        st.checkbox('Bag of Words', on_change=main(), key='bow')
+        st.checkbox('Bag of Words', on_change=main())
     with w2v_c:
-        st.checkbox('Word2Vec (Pre-Trained)', on_change=main(), key='w2v')
+        st.checkbox('Word2Vec (Pre-Trained)', on_change=main())
     with glv_c:
-        st.checkbox('GLoVe (Pre-Trained)', on_change=main(), key='glv_c')
+        st.checkbox('GLoVe (Pre-Trained)', on_change=main())
     with w2vc_c:
-        st.checkbox('Word2Vec (Customized)', on_change=main(), key='w2vc')
+        st.checkbox('Word2Vec (Customized)', on_change=main())
     with svd_c:
-        st.checkbox('LSA / SVD', on_change=main(), key='svd')
+        st.checkbox('LSA / SVD', on_change=main())
 
     if bow_c:
         vectorizer = CountVectorizer(binary=True)
