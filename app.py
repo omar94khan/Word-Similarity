@@ -108,7 +108,8 @@ def main():
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
         bow_result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
-        st.write(bow_result.sort_values('Similarity', ascending=False, ignore_index=True))
+        bow_result = bow_result.sort_values('Similarity', ascending=False, ignore_index=True)
+        
 
     models = dict()
 
@@ -123,7 +124,16 @@ def main():
         if models[i] == True:
             columns.append(i)
 
-    result = pd.DataFrame(columns=columns)
+    header = pd.MultiIndex.from_product([columns,
+                                     ['Headline','Similarity']],
+                                    names=['model','similarity'])
+
+    result = pd.DataFrame(columns=header)
+
+    if bow_c == True:
+        result = result.append({['Bag of Words','Headline'] : bow_result['Result'],
+                       ['Bag of Words','Similarity'] : bow_result['Similarity']
+                       }, ignore_index = True)
 
     for i,j in model_list:
         st.write('Status of ',i,': ',j)
