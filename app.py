@@ -135,6 +135,13 @@ def main():
             result = result.append({('Bag of Words','Headline') : bow_result['Result'][i],
                        ('Bag of Words','Similarity') : float(bow_result['Similarity'][i])},
                        ignore_index = True)
+            
+    if w2v_c == True:
+        for i in range(0,len(bow_result)):
+            result = result.append({('Word2Vec (Pre-Trained)','Headline') : bow_result['Result'][i],
+                       ('Word2Vec (Pre-Trained)','Similarity') : float(bow_result['Similarity'][i])},
+                       ignore_index = True)
+    
 
     # for i,j in model_list:
     #     st.write('Status of ',i,': ',j)
