@@ -104,19 +104,19 @@ def main():
     with n_words:
         st.number_input('Number of top results', step=1, min_value=1, max_value=10)
 
-    bow, w2v, glv, w2vc, svd = st.columns(5)
-    with bow:
-        st.checkbox('Bag of Words')
-    with w2v:
-        st.checkbox('Word2Vec (Pre-Trained)')
-    with glv:
-        st.checkbox('GLoVe (Pre-Trained)')
-    with w2vc:
-        st.checkbox('Word2Vec (Customized)')
-    with svd:
-        st.checkbox('LSA / SVD')
+    bow_c, w2v_c, glv_c, w2vc_c, svd_c = st.columns(5)
+    with bow_c:
+        st.checkbox('Bag of Words', on_change=main(), key='bow')
+    with w2v_c:
+        st.checkbox('Word2Vec (Pre-Trained)', on_change=main(), key='w2v')
+    with glv_c:
+        st.checkbox('GLoVe (Pre-Trained)', on_change=main(), key='glv_c')
+    with w2vc_c:
+        st.checkbox('Word2Vec (Customized)', on_change=main(), key='w2vc')
+    with svd_c:
+        st.checkbox('LSA / SVD', on_change=main(), key='svd')
 
-    if bow == True:
+    if bow_c:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
         result = find_top_n_results(titles, text, embedding, vectorizer, root_method = 'stem', n=n_words, stop_word_removal=True)
@@ -124,10 +124,7 @@ def main():
 
     models = dict()
 
-    st.write(bow)
-    st.write(w2v)
-    
-    model_list = [["Bag of Words" , bow], ["Word2Vec (Pre-Trained)" , w2v], ["GLoVe (Pre-Trained)",  glv], ["Word2Vec (Customized)" , w2vc], ["LSA / SVD", svd]]
+    model_list = [["Bag of Words" , bow_c], ["Word2Vec (Pre-Trained)" , w2v_c], ["GLoVe (Pre-Trained)",  glv_c], ["Word2Vec (Customized)" , w2vc_c], ["LSA / SVD", svd_c]]
     for i,j in model_list:
         # for j,k in i:
             try:
