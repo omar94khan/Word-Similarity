@@ -12,6 +12,9 @@ from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import spacy
+
+nlp = spacy.load("en_core_web_md")
 
 # Functions for Bag of Words
 def remove_punctutations(text):
