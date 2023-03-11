@@ -14,6 +14,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
 
+nltk.download("en_core_web_md")
 nlp = spacy.load("en_core_web_md")
 
 # Functions for Bag of Words
