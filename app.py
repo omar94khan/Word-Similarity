@@ -132,15 +132,20 @@ def main():
 
     if bow_c == True:
         for i in range(0,len(bow_result)):
-            result = result.append({('Bag of Words','Headline') : bow_result['Result'][i],
-                       ('Bag of Words','Similarity') : float(bow_result['Similarity'][i])},
-                       ignore_index = True)
+            result.loc[i,('Bag of Words','Headline')] = bow_result['Result'][i]
+            result.loc[i,('Bag of Words','Similarity')] = bow_result['Similarity'][i]
+            # result = result.append({('Bag of Words','Headline') : bow_result['Result'][i],
+            #            ('Bag of Words','Similarity') : float(bow_result['Similarity'][i])},
+            #            ignore_index = True)
             
     if w2v_c == True:
         for i in range(0,len(bow_result)):
-            result = result.concat({('Word2Vec (Pre-Trained)','Headline') : bow_result['Result'][i],
-                       ('Word2Vec (Pre-Trained)','Similarity') : float(bow_result['Similarity'][i])},
-                       axis=1, ignore_index=True)
+            result.loc[i,('Word2Vec (Pre-Trained)','Headline')] = bow_result['Result'][i]
+            result.loc[i,('Word2Vec (Pre-Trained)','Similarity')] = bow_result['Similarity'][i]
+            
+            # result = result.concat({('Word2Vec (Pre-Trained)','Headline') : bow_result['Result'][i],
+            #            ('Word2Vec (Pre-Trained)','Similarity') : float(bow_result['Similarity'][i])},
+            #            ignore_index = True)
     
 
     # for i,j in model_list:
