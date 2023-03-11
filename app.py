@@ -116,6 +116,8 @@ def main():
     with svd:
         st.checkbox('LSA / SVD')
 
+    st.write(bow, w2v, glv, w2vc, svd)
+
     if bow == True:
         vectorizer = CountVectorizer(binary=True)
         embedding = vectorizer.fit(titles).transform(titles).toarray()
@@ -137,7 +139,7 @@ def main():
 
     result = pd.DataFrame(columns=columns)
 
-    
+
 
     st.write(result)
 
